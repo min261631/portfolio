@@ -26,7 +26,7 @@ export default function PortfolioPage() {
 
   // typing (keep your vibe, just smoother)
   const roles = useMemo(
-    () => ["Full-Stack Developer", "Software Engineer", "AI Enthusiast", "Problem Solver"],
+    () => ["Fullstack Developer", "Software Engineer", "Full-Stack Developer", "AI Enthusiast", "Problem Solver"],
     []
   )
   const [roleIndex, setRoleIndex] = useState(0)
