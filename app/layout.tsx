@@ -39,6 +39,12 @@ export const metadata: Metadata = {
   },
 }
 
+const geist = Geist({ 
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+  display: "swap",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -46,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans antialiased`}>
+      <body className={`${geist.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

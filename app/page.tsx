@@ -16,6 +16,13 @@ import {
   Briefcase,
   MessageCircle,
   Code2,
+  Sparkles,
+  ArrowUpRight,
+  ExternalLink,
+  Cpu,
+  Layers,
+  Globe,
+  Cloud,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -71,35 +78,36 @@ export default function PortfolioPage() {
     return () => window.clearTimeout(timer)
   }, [del, i, roleIndex, roles])
 
-  // scroll spy (unchanged behaviour)
+  // Improved Scroll Spy using Intersection Observer
   useEffect(() => {
-    const handler = () => {
-      const current = sections.find((id) => {
-        const el = document.getElementById(id)
-        if (!el) return false
-        const r = el.getBoundingClientRect()
-        return r.top <= 260 && r.bottom >= 260
-      })
-      if (current) setActiveNav(current)
-    }
-    window.addEventListener("scroll", handler, { passive: true })
-    handler()
-    return () => window.removeEventListener("scroll", handler)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveNav(entry.target.id)
+        })
+      },
+      { threshold: 0.5 }
+    )
+    sections.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
   }, [sections])
 
   return (
-    <div className="min-h-screen bg-[#07090b] text-white relative overflow-hidden">
-      {/* --- premium background (depth, not distracting) --- */}
-      <div className="pointer-events-none fixed inset-0 z-0">
+    <div className="min-h-screen bg-[#030303] text-white relative overflow-hidden selection:bg-emerald-500/30">
+      {/* Background Layer: Aurora Blobs & Noise */}
+      <div className="aurora-bg">
+        <div className="aurora-blob bg-emerald-500 top-[-10%] left-[-10%]" />
+        <div className="aurora-blob bg-sky-500 bottom-[-10%] right-[-10%] [animation-delay:-5s]" />
         <div className="absolute inset-0 hero-grid opacity-[0.08]" />
-        <div className="absolute -top-40 -left-48 h-[520px] w-[520px] rounded-full bg-emerald-400/10 blur-3xl" />
-        <div className="absolute -bottom-40 -right-48 h-[520px] w-[520px] rounded-full bg-sky-400/10 blur-3xl" />
         <div className="absolute inset-0 hero-vignette" />
         <div className="absolute inset-0 hero-noise opacity-40" />
       </div>
 
       {/* --- top header (same layout, more premium) --- */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 xl:px-24 py-5 flex items-center justify-between border-b border-white/10 bg-[#07090b]/70 backdrop-blur-xl">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 xl:px-24 py-5 flex items-center justify-between border-b border-white/10 bg-[#030303]/70 backdrop-blur-xl">
         <Link href="#home" className="group flex flex-col items-start">
           <div className="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent tracking-tight">
             MR
@@ -120,20 +128,20 @@ export default function PortfolioPage() {
       {/* --- HERO (same layout, better hierarchy + spacing + finish) --- */}
       <section
         id="home"
-        className="min-h-screen flex items-center px-6 md:px-12 lg:px-16 xl:px-24 pt-24 pb-32 scroll-mt-28 relative z-10"
+        className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-16 xl:px-24 pt-24 pb-32 scroll-mt-28 relative z-10"
       >
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* left */}
-          <div className="space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.02] tracking-tight">
+          <div className="space-y-5 text-center lg:text-left">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] tracking-[-0.02em] uppercase">
               MIHINI
               <br />
               RANASINGHE
             </h1>
 
-            <div className="text-xl md:text-2xl lg:text-3xl font-medium pt-1">
-              <span className="text-white/80">I am a </span>
-              <span className="bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent">
+            <div className="text-xl md:text-2xl lg:text-3xl font-normal pt-1">
+              <span className="text-white/90">I am a </span>
+              <span className="bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent font-medium">
                 {text}
                 <span className={cursor ? "opacity-100" : "opacity-0"} aria-hidden>
                   |
@@ -141,32 +149,27 @@ export default function PortfolioPage() {
               </span>
             </div>
 
-            {/* subtle subline (kept, just nicer) */}
-            <p className="max-w-xl text-white/60 text-base md:text-lg leading-relaxed">
-              Building clean, production-ready web apps with solid UI, reliable APIs, and cloud deployment.
-            </p>
-
             {/* contact row: lighter + cleaner */}
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-white/75 pt-1">
-              <div className="flex items-center gap-2">
-                <Mail size={18} className="text-white/45" />
-                <span className="text-[15px]">mihininiweka@gmail.com</span>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 md:gap-6 text-white/80 pt-3">
+              <div className="flex items-center gap-2.5">
+                <Mail size={18} className="text-white/50" />
+                <span className="text-sm md:text-base">mihininiweka@gmail.com</span>
               </div>
-              <div className="flex items-center gap-2">
-                <GraduationCap size={18} className="text-white/45" />
-                <span className="text-[15px]">La Trobe University</span>
+              <div className="flex items-center gap-2.5">
+                <GraduationCap size={18} className="text-white/50" />
+                <span className="text-sm md:text-base">La Trobe University</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin size={18} className="text-white/45" />
-                <span className="text-[15px]">Melbourne</span>
+              <div className="flex items-center gap-2.5">
+                <MapPin size={18} className="text-white/50" />
+                <span className="text-sm md:text-base">Melbourne</span>
               </div>
             </div>
 
             {/* buttons: clearer primary/secondary */}
-            <div className="flex flex-wrap gap-4 pt-6">
+            <div className="flex flex-wrap gap-4 pt-4 justify-center lg:justify-start">
               <Button
                 size="lg"
-                className="rounded-2xl px-8 bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/10 hover:opacity-90 hover:scale-[1.03] transition-all"
+                className="rounded-xl px-7 py-6 text-base font-medium bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/10 hover:opacity-90 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -177,7 +180,7 @@ export default function PortfolioPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-2xl px-8 border-white/15 bg-white/[0.03] text-white hover:bg-white/[0.06] hover:border-white/25 hover:scale-[1.03] transition-all"
+                className="rounded-xl px-7 py-6 text-base font-medium border-white/20 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/30 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="#contact">Contact me</Link>
@@ -185,7 +188,7 @@ export default function PortfolioPage() {
             </div>
 
             {/* socials: glass pills, nicer hover */}
-            <div className="flex items-center gap-3 pt-6">
+            <div className="flex items-center gap-3 pt-6 justify-center lg:justify-start">
               {[
                 { href: "https://github.com/min261631", label: "GitHub", Icon: Github },
                 { href: "https://www.linkedin.com/in/mihini-ranasinghe-213355219", label: "LinkedIn", Icon: Linkedin },
@@ -205,37 +208,37 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* right: portrait + ring (same concept, better finish) */}
+          {/* right: portrait + capsule shape (pill/rounded rectangle) */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 animate-float">
+            <div className="relative w-72 md:w-80 lg:w-96 xl:w-[28rem] animate-float" style={{ aspectRatio: '3/4' }}>
               {/* outer glow */}
-              <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-emerald-300/20 to-sky-400/20 blur-3xl opacity-80" />
-              {/* ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 p-[2px]">
-                <div className="w-full h-full rounded-full bg-[#07090b] p-[6px] shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_14px_40px_rgba(0,0,0,0.55)]">
+              <div className="absolute -inset-8 rounded-[9999px] bg-gradient-to-r from-emerald-300/20 to-sky-400/20 blur-3xl opacity-70" style={{ aspectRatio: '3/4' }} />
+              {/* capsule border */}
+              <div className="absolute inset-0 rounded-[9999px] bg-gradient-to-r from-emerald-300 to-sky-400 p-[3px]" style={{ aspectRatio: '3/4' }}>
+                <div className="w-full h-full rounded-[9999px] bg-[#030303] p-[8px] shadow-[0_0_0_1px_rgba(255,255,255,0.1)]" style={{ aspectRatio: '3/4' }}>
+                  <div className="relative w-full h-full rounded-[9999px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
                     <Image
                       src="/professional-headshot-of-young-female-software-eng.jpg"
                       alt="Mihini Ranasinghe"
                       width={640}
-                      height={640}
-                      className="w-full h-full object-cover scale-[1.01] hover:scale-[1.04] transition-transform duration-500"
+                      height={853}
+                      className="w-full h-full object-cover scale-[1.02] hover:scale-[1.05] transition-transform duration-500"
                       priority
                     />
                     {/* subtle highlight */}
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.16),transparent_45%)]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_50%)]" />
                   </div>
                 </div>
               </div>
               {/* thin outer ring */}
-              <div className="absolute inset-0 rounded-full ring-1 ring-white/10 pointer-events-none" />
+              <div className="absolute inset-0 rounded-[9999px] ring-1 ring-white/15 pointer-events-none" style={{ aspectRatio: '3/4' }} />
             </div>
           </div>
         </div>
       </section>
 
       {/* --- bottom dock (same, looks more native) --- */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#07090b]/70 backdrop-blur-xl">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#030303]/70 backdrop-blur-xl">
         <div className="max-w-md mx-auto px-6 py-4">
           <div className="relative rounded-full p-2 border border-white/12 bg-white/[0.035] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
             {/* top highlight line */}
@@ -297,47 +300,70 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Skills Bento Grid */}
       <section
         id="skills"
-        className="py-24 md:py-32 px-6 md:px-12 lg:px-16 xl:px-24 relative min-h-screen flex items-center scroll-mt-28"
+        className="py-32 px-6 md:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto scroll-mt-20 relative z-10"
       >
-        <div className="max-w-7xl mx-auto w-full">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 md:mb-16 text-white">
-            Skills{" "}
-            <span className="bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent">
-              & Technologies
-            </span>
-          </h2>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+          <div>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-emerald-400 mb-4 font-bold">Expertise</h2>
+            <h3 className="text-4xl md:text-6xl font-black italic uppercase">Technical Stack</h3>
+          </div>
+          <p className="text-white/40 max-w-xs text-right hidden md:block">
+            Specializing in full-stack engineering, cloud architecture, and AI-driven solutions.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {[
-              { title: "Frontend", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-              { title: "Backend", skills: ["Node.js", "Flask", "REST APIs"] },
-              { title: "Cloud / DevOps", skills: ["AWS (S3, Lambda, EC2)", "Firebase", "Docker", "CI/CD"] },
-              { title: "Tools", skills: ["Git", "Figma", "SQL", "Google Cloud"] },
-            ].map((category) => (
-              <Card
-                key={category.title}
-                className="p-8 bg-white/[0.04] backdrop-blur-sm border-white/10 hover:border-emerald-300/35 transition-all duration-300 group h-full rounded-2xl"
-              >
-                <h3 className="text-sm font-semibold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent mb-4 uppercase tracking-wide flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400" />
-                  {category.title}
-                </h3>
-                <div className="space-y-3">
-                  {category.skills.map((skill) => (
-                    <div
-                      key={skill}
-                      className="text-base text-white/80 flex items-center gap-2 group-hover:translate-x-1 transition-transform"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/35" />
-                      {skill}
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {/* Main Skill Card */}
+          <div className="glass-card md:col-span-2 p-10 rounded-[2.5rem] relative overflow-hidden group">
+            <Globe className="absolute -right-8 -bottom-8 text-emerald-500/5 w-48 h-48 group-hover:rotate-12 transition-transform" />
+            <h4 className="text-2xl font-bold mb-8 flex items-center gap-3">
+              <Layers className="text-emerald-400" /> Frontend Architecture
+            </h4>
+            <div className="flex flex-wrap gap-3">
+              {["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"].map((s) => (
+                <Badge
+                  key={s}
+                  className="bg-white/5 hover:bg-emerald-500 hover:text-black transition-colors py-2 px-4 rounded-xl border-white/10"
+                >
+                  {s}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Backend Card */}
+          <div className="glass-card p-10 rounded-[2.5rem]">
+            <h4 className="text-xl font-bold mb-6 flex items-center gap-3">
+              <Cpu className="text-sky-400" /> Backend
+            </h4>
+            <ul className="space-y-4 text-white/50">
+              <li className="flex items-center gap-2 font-mono text-sm">
+                <div className="w-1.5 h-1.5 rounded-full bg-sky-400" /> Node.js / Bun
+              </li>
+              <li className="flex items-center gap-2 font-mono text-sm">
+                <div className="w-1.5 h-1.5 rounded-full bg-sky-400" /> Python Flask
+              </li>
+              <li className="flex items-center gap-2 font-mono text-sm">
+                <div className="w-1.5 h-1.5 rounded-full bg-sky-400" /> PostgreSQL
+              </li>
+            </ul>
+          </div>
+
+          {/* Cloud Card */}
+          <div className="glass-card p-10 rounded-[2.5rem]">
+            <h4 className="text-xl font-bold mb-6 flex items-center gap-3">
+              <Cloud className="text-purple-400" /> Cloud
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {["AWS (S3, Lambda)", "Docker", "Firebase", "CI/CD"].map((t) => (
+                <Badge key={t} variant="secondary" className="bg-white/5 text-white/60 border-none">
+                  {t}
+                </Badge>
+              ))}
+            </div>
           </div>
         </div>
       </section>
