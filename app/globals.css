@@ -11,7 +11,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), "Geist", "Geist Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-rajdhani), "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-secondary: var(--font-rajdhani), "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --color-accent-glow: rgba(110, 231, 183, 0.15);
   --color-background: var(--background);
@@ -20,8 +21,162 @@
 
 @layer base {
   body {
-    @apply bg-[#030303] text-white antialiased selection:bg-emerald-500/30;
+    @apply text-white antialiased selection:bg-emerald-500/30;
+    font-size: 1.125rem;
+    line-height: 2rem;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  
+  blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
+    margin: 0;
+  }
+}
+
+.bg-site {
+  background-image: url(/site-bg.a78bcff79b6c2e1d5edd.jpg);
+  background-position: center;
+  background-size: 110%;
+  animation: backgroundMove 30s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes backgroundMove {
+  0%, 100% {
+    background-position: 50% 50%;
+    background-size: 110%;
+  }
+  33% {
+    background-position: 48% 52%;
+    background-size: 115%;
+  }
+  66% {
+    background-position: 52% 48%;
+    background-size: 115%;
+  }
+}
+
+/* Small tornado-like swirling light patches */
+.cloud-light-1,
+.cloud-light-2,
+.cloud-light-3 {
+  position: absolute;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  filter: blur(80px);
+  will-change: transform;
+  opacity: 0.7;
+  transform-origin: center center;
+}
+
+.cloud-light-1 {
+  top: 15%;
+  left: 20%;
+  width: 400px;
+  height: 400px;
+  background: 
+    radial-gradient(circle 200px at 50% 50%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.2) 40%, transparent 70%);
+  animation: tornado1 20s linear infinite;
+  border-radius: 50%;
+}
+
+.cloud-light-2 {
+  top: 55%;
+  right: 25%;
+  width: 350px;
+  height: 350px;
+  background: 
+    radial-gradient(circle 180px at 50% 50%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.18) 38%, transparent 68%);
+  animation: tornado2 25s linear infinite;
+  border-radius: 50%;
+}
+
+.cloud-light-3 {
+  bottom: 25%;
+  left: 15%;
+  width: 380px;
+  height: 380px;
+  background: 
+    radial-gradient(circle 190px at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.16) 42%, transparent 72%);
+  animation: tornado3 22s linear infinite;
+  border-radius: 50%;
+}
+
+@keyframes tornado1 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(80px, -60px) rotate(90deg) scale(1.1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(-60px, 100px) rotate(180deg) scale(0.9);
+    opacity: 0.65;
+  }
+  75% {
+    transform: translate(-80px, -40px) rotate(270deg) scale(1.05);
+    opacity: 0.72;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes tornado2 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(-90px, 70px) rotate(-90deg) scale(1.08);
+    opacity: 0.74;
+  }
+  50% {
+    transform: translate(70px, -90px) rotate(-180deg) scale(0.92);
+    opacity: 0.66;
+  }
+  75% {
+    transform: translate(90px, 50px) rotate(-270deg) scale(1.06);
+    opacity: 0.71;
+  }
+  100% {
+    transform: translate(0, 0) rotate(-360deg) scale(1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes tornado3 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(70px, 80px) rotate(90deg) scale(1.12);
+    opacity: 0.76;
+  }
+  50% {
+    transform: translate(-80px, -70px) rotate(180deg) scale(0.88);
+    opacity: 0.64;
+  }
+  75% {
+    transform: translate(-70px, 60px) rotate(270deg) scale(1.04);
+    opacity: 0.69;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+    opacity: 0.7;
+  }
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
 }
 
 /* --- Dynamic Aurora Mesh Gradient --- */
@@ -246,4 +401,54 @@ html {
 /* Small screens: reduce the split divider visibility */
 @media (max-width: 1024px){
   .hero-split-divider{ display:none; }
+}
+
+/* ===================== Reference-style Hero (Jasdev-like) ===================== */
+
+.ref-hero-spotlight{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 35% 15%, rgba(255,255,255,0.14), transparent 40%),
+    radial-gradient(circle at 70% 35%, rgba(110,231,183,0.10), transparent 42%),
+    radial-gradient(circle at 60% 10%, rgba(56,189,248,0.10), transparent 45%);
+  opacity: 0.9;
+}
+
+.ref-portrait-wrap{
+  position: relative;
+  width: clamp(260px, 34vw, 440px);
+  aspect-ratio: 1 / 1;
+}
+
+.ref-portrait-ring{
+  position:absolute;
+  inset: -14px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.12), rgba(255,255,255,0) 55%);
+  filter: blur(14px);
+  opacity: 0.9;
+}
+
+.ref-portrait{
+  position:absolute;
+  inset: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.7);
+}
+
+.ref-portrait-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 500ms ease;
+}
+
+.ref-portrait:hover .ref-portrait-img{
+  transform: scale(1.06);
 }

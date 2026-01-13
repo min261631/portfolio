@@ -16,9 +16,6 @@ import {
   Briefcase,
   MessageCircle,
   Code2,
-  Sparkles,
-  ArrowUpRight,
-  ExternalLink,
   Cpu,
   Layers,
   Globe,
@@ -31,7 +28,7 @@ export default function PortfolioPage() {
   const sections = useMemo(() => ["home", "about", "skills", "projects", "contact"], [])
   const [activeNav, setActiveNav] = useState<(typeof sections)[number]>("home")
 
-  // typing (keep your vibe, just smoother)
+  // Typing effect with cursor
   const roles = useMemo(
     () => ["Fullstack Developer", "Software Engineer", "Full-Stack Developer", "AI Enthusiast", "Problem Solver"],
     []
@@ -96,26 +93,24 @@ export default function PortfolioPage() {
   }, [sections])
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white relative overflow-hidden selection:bg-emerald-500/30">
-      {/* Background Layer: Aurora Blobs & Noise */}
-      <div className="aurora-bg">
-        <div className="aurora-blob bg-emerald-500 top-[-10%] left-[-10%]" />
-        <div className="aurora-blob bg-sky-500 bottom-[-10%] right-[-10%] [animation-delay:-5s]" />
-        <div className="absolute inset-0 hero-grid opacity-[0.08]" />
-        <div className="absolute inset-0 hero-vignette" />
-        <div className="absolute inset-0 hero-noise opacity-40" />
+    <div className="min-h-screen overflow-hidden bg-site bg-no-repeat bg-cover text-white relative selection:bg-emerald-500/30">
+      {/* Animated cloud-like light patches */}
+      <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
+        <div className="cloud-light-1" />
+        <div className="cloud-light-2" />
+        <div className="cloud-light-3" />
       </div>
 
       {/* --- top header (same layout, more premium) --- */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 xl:px-24 py-5 flex items-center justify-between border-b border-white/10 bg-[#030303]/70 backdrop-blur-xl">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 xl:px-24 py-6 flex items-center justify-between bg-transparent">
         <Link href="#home" className="group flex flex-col items-start">
-          <div className="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent tracking-tight">
+          <div className="text-xl font-bold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent tracking-tight">
             MR
           </div>
-          <div className="text-[11px] tracking-[0.22em] text-white/65 group-hover:text-white/80 transition-colors">
-            MIHINI RANASINGHE
+          <div className="text-sm tracking-[0.22em] text-white/65 group-hover:text-white/80 transition-colors">
+            MIHINI NIWEKA
           </div>
-        </Link>
+          </Link>
 
         <Button
           className="rounded-2xl px-6 shadow-lg shadow-emerald-500/10 bg-gradient-to-r from-emerald-300 to-sky-400 text-black hover:opacity-90 hover:scale-[1.03] transition-all"
@@ -132,44 +127,42 @@ export default function PortfolioPage() {
       >
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* left */}
-          <div className="space-y-5 text-center lg:text-left">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] tracking-[-0.02em] uppercase">
-              MIHINI
-              <br />
-              RANASINGHE
+          <div className="space-y-5 flex flex-col items-start">
+            <h1 className="text-[55px] font-bold leading-[0.8] lg:text-[110px] mb-3 lg:mb-0 whitespace-nowrap">
+              MIHINI NIWEKA
             </h1>
 
-            <div className="text-xl md:text-2xl lg:text-3xl font-normal pt-1">
-              <span className="text-white/90">I am a </span>
-              <span className="bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent font-medium">
+            <div className="mb-6 text-[25px] lg:text-[50px] font-secondary font-semibold leading-[1] whitespace-nowrap">
+              <span className="text-white">I am a </span>
+              <span className="text-sky-300 uppercase inline-block w-[200px] lg:w-[400px] text-left">
                 {text}
                 <span className={cursor ? "opacity-100" : "opacity-0"} aria-hidden>
                   |
                 </span>
               </span>
-            </div>
+          </div>
 
             {/* contact row: lighter + cleaner */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 md:gap-6 text-white/80 pt-3">
+            <div className="flex flex-wrap items-center justify-center gap-5 md:gap-6 text-white/80 pt-3">
               <div className="flex items-center gap-2.5">
                 <Mail size={18} className="text-white/50" />
-                <span className="text-sm md:text-base">mihininiweka@gmail.com</span>
+                <span className="text-lg">mihininiweka@gmail.com</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <GraduationCap size={18} className="text-white/50" />
-                <span className="text-sm md:text-base">La Trobe University</span>
-              </div>
+                <span className="text-lg">La Trobe University</span>
+        </div>
               <div className="flex items-center gap-2.5">
                 <MapPin size={18} className="text-white/50" />
-                <span className="text-sm md:text-base">Melbourne</span>
-              </div>
+                <span className="text-lg">Melbourne</span>
             </div>
+          </div>
 
             {/* buttons: clearer primary/secondary */}
-            <div className="flex flex-wrap gap-4 pt-4 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-4 pt-4 justify-center">
               <Button
                 size="lg"
-                className="rounded-xl px-7 py-6 text-base font-medium bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/10 hover:opacity-90 hover:scale-[1.02] transition-all"
+                className="rounded-xl px-7 py-6 text-lg font-medium bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/10 hover:opacity-90 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -180,7 +173,7 @@ export default function PortfolioPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-xl px-7 py-6 text-base font-medium border-white/20 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/30 hover:scale-[1.02] transition-all"
+                className="rounded-xl px-7 py-6 text-lg font-medium border-white/20 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/30 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="#contact">Contact me</Link>
@@ -188,7 +181,7 @@ export default function PortfolioPage() {
             </div>
 
             {/* socials: glass pills, nicer hover */}
-            <div className="flex items-center gap-3 pt-6 justify-center lg:justify-start">
+            <div className="flex items-center gap-3 pt-6 justify-center">
               {[
                 { href: "https://github.com/min261631", label: "GitHub", Icon: Github },
                 { href: "https://www.linkedin.com/in/mihini-ranasinghe-213355219", label: "LinkedIn", Icon: Linkedin },
@@ -208,39 +201,26 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* right: portrait + capsule shape (pill/rounded rectangle) */}
+          {/* right: portrait image */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-72 md:w-80 lg:w-96 xl:w-[28rem] animate-float" style={{ aspectRatio: '3/4' }}>
-              {/* outer glow */}
-              <div className="absolute -inset-8 rounded-[9999px] bg-gradient-to-r from-emerald-300/20 to-sky-400/20 blur-3xl opacity-70" style={{ aspectRatio: '3/4' }} />
-              {/* capsule border */}
-              <div className="absolute inset-0 rounded-[9999px] bg-gradient-to-r from-emerald-300 to-sky-400 p-[3px]" style={{ aspectRatio: '3/4' }}>
-                <div className="w-full h-full rounded-[9999px] bg-[#030303] p-[8px] shadow-[0_0_0_1px_rgba(255,255,255,0.1)]" style={{ aspectRatio: '3/4' }}>
-                  <div className="relative w-full h-full rounded-[9999px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-                    <Image
-                      src="/professional-headshot-of-young-female-software-eng.jpg"
-                      alt="Mihini Ranasinghe"
-                      width={640}
-                      height={853}
-                      className="w-full h-full object-cover scale-[1.02] hover:scale-[1.05] transition-transform duration-500"
-                      priority
-                    />
-                    {/* subtle highlight */}
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_50%)]" />
-                  </div>
-                </div>
-              </div>
-              {/* thin outer ring */}
-              <div className="absolute inset-0 rounded-[9999px] ring-1 ring-white/15 pointer-events-none" style={{ aspectRatio: '3/4' }} />
+            <div className="animate-float w-full max-w-xs lg:max-w-sm xl:max-w-md">
+              <Image
+                src="/photo.png"
+                alt="Mihini Niweka"
+                width={500}
+                height={500}
+                className="w-full h-auto object-contain"
+                priority
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* --- bottom dock (same, looks more native) --- */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#030303]/70 backdrop-blur-xl">
-        <div className="max-w-md mx-auto px-6 py-4">
-          <div className="relative rounded-full p-2 border border-white/12 bg-white/[0.035] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
+        <div className="max-w-md mx-auto px-6 pb-6">
+          <div className="relative rounded-full p-2 border border-white/10 bg-[#0b0b0b]/70 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
             {/* top highlight line */}
             <div className="pointer-events-none absolute inset-x-4 top-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="flex items-center justify-around">
@@ -261,8 +241,8 @@ export default function PortfolioPage() {
                     className={[
                       "h-12 w-12 rounded-full grid place-items-center transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/35",
                       isActive
-                        ? "bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/15 scale-[1.08]"
-                        : "text-white/55 hover:text-white/85 hover:bg-white/[0.06] hover:scale-[1.04]",
+                        ? "bg-gradient-to-r from-sky-400 to-emerald-300 text-black shadow-lg shadow-emerald-500/20 scale-[1.08]"
+                        : "text-white/50 hover:text-white/85 hover:bg-white/[0.05] hover:scale-[1.04]",
                     ].join(" ")}
                   >
                     <Icon size={19} />
@@ -288,9 +268,9 @@ export default function PortfolioPage() {
             <div className="space-y-5 text-lg text-white/80 leading-relaxed">
               <div className="p-8 rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/10 hover:border-emerald-300/30 transition-all">
                 <p>
-                  Final-year Software Engineering student at La Trobe University with hands-on experience building
-                  full-stack applications, cloud deployments, and AI-driven features.
-                </p>
+                Final-year Software Engineering student at La Trobe University with hands-on experience building
+                full-stack applications, cloud deployments, and AI-driven features.
+              </p>
               </div>
               <div className="p-8 rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/10 hover:border-emerald-300/30 transition-all">
                 <p>I enjoy turning complex problems into clean, production-ready systems.</p>
@@ -330,8 +310,8 @@ export default function PortfolioPage() {
                 >
                   {s}
                 </Badge>
-              ))}
-            </div>
+                  ))}
+                </div>
           </div>
 
           {/* Backend Card */}
@@ -380,7 +360,7 @@ export default function PortfolioPage() {
               <span className="bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent">
                 Projects
               </span>
-            </h2>
+          </h2>
             <p className="text-white/60 text-lg lg:text-xl">Building solutions that make a difference</p>
           </div>
 

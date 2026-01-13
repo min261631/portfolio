@@ -1,18 +1,22 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Rajdhani } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const rajdhani = Rajdhani({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-rajdhani",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "Mihini Ranasinghe | Full-Stack Developer",
   description:
     "Software Engineering major at La Trobe University. Full-stack developer specializing in AWS, AI/ML, and scalable web applications. Vice President of GDG La Trobe & CTO of Enactus La Trobe.",
   keywords: ["Full-Stack Developer", "Software Engineer", "AWS", "React", "Next.js", "AI/ML", "Melbourne Developer"],
-  authors: [{ name: "Mihini Ranasinghe" }],
+  authors: [{ name: "Mihini Niweka" }],
   generator: "v0.app",
   icons: {
     icon: [
@@ -32,18 +36,12 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "Mihini Ranasinghe | Full-Stack Developer",
+    title: "Mihini Niweka | Full-Stack Developer",
     description:
       "Full-stack developer crafting scalable, impact-driven applications with AWS, AI/ML, and modern web technologies.",
     type: "website",
   },
 }
-
-const geist = Geist({ 
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-  display: "swap",
-})
 
 export default function RootLayout({
   children,
@@ -52,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geist.variable} font-sans antialiased`}>
+      <body className={`${rajdhani.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>
