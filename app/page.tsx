@@ -10,11 +10,6 @@ import {
   Mail,
   MapPin,
   GraduationCap,
-  Home,
-  User,
-  BarChart3,
-  Briefcase,
-  MessageCircle,
   Code2,
   Cpu,
   Layers,
@@ -23,10 +18,9 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function PortfolioPage() {
-  const sections = useMemo(() => ["home", "about", "skills", "projects", "contact"], [])
-  const [activeNav, setActiveNav] = useState<(typeof sections)[number]>("home")
 
   // Typing effect with cursor
   const roles = useMemo(
@@ -40,15 +34,15 @@ export default function PortfolioPage() {
   const [del, setDel] = useState(false)
 
   useEffect(() => {
-    const t = window.setInterval(() => setCursor((v) => !v), 520)
-    return () => window.clearInterval(t)
+    const intervalId = setInterval(() => setCursor((v) => !v), 520)
+    return () => clearInterval(intervalId)
   }, [])
 
   useEffect(() => {
     const current = roles[roleIndex]
     const speed = del ? 45 : 80
 
-    const timer = window.setTimeout(() => {
+    const timer = setTimeout(() => {
       if (!del && i < current.length) {
         setText(current.slice(0, i + 1))
         setI((v) => v + 1)
@@ -62,7 +56,7 @@ export default function PortfolioPage() {
       }
 
       if (!del && i === current.length) {
-        window.setTimeout(() => setDel(true), 1100)
+        setTimeout(() => setDel(true), 1100)
         return
       }
 
@@ -72,28 +66,13 @@ export default function PortfolioPage() {
       }
     }, speed)
 
-    return () => window.clearTimeout(timer)
+    return () => clearTimeout(timer)
   }, [del, i, roleIndex, roles])
 
-  // Improved Scroll Spy using Intersection Observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveNav(entry.target.id)
-        })
-      },
-      { threshold: 0.5 }
-    )
-    sections.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [sections])
 
   return (
     <div className="min-h-screen overflow-hidden bg-site bg-no-repeat bg-cover text-white relative selection:bg-emerald-500/30">
+      {/* Skip to content link is handled in layout */}
       {/* Animated cloud-like light patches */}
       <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
         <div className="cloud-light-1" />
@@ -101,29 +80,13 @@ export default function PortfolioPage() {
         <div className="cloud-light-3" />
       </div>
 
-      {/* --- top header (same layout, more premium) --- */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 xl:px-24 py-6 flex items-center justify-between bg-transparent">
-        <Link href="#home" className="group flex flex-col items-start">
-          <div className="text-xl font-bold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent tracking-tight">
-            MR
-          </div>
-          <div className="text-sm tracking-[0.22em] text-white/65 group-hover:text-white/80 transition-colors">
-            MIHINI NIWEKA
-          </div>
-          </Link>
-
-        <Button
-          className="rounded-2xl px-6 shadow-lg shadow-emerald-500/10 bg-gradient-to-r from-emerald-300 to-sky-400 text-black hover:opacity-90 hover:scale-[1.03] transition-all"
-          asChild
-        >
-          <Link href="#contact">Work With Me</Link>
-        </Button>
-      </header>
+      {/* Header is now in layout.tsx - shared across all pages */}
 
       {/* --- HERO (same layout, better hierarchy + spacing + finish) --- */}
       <section
         id="home"
-        className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-16 xl:px-24 pt-24 pb-32 scroll-mt-28 relative z-10"
+        className="min-h-[85vh] flex items-center justify-center px-6 md:px-12 lg:px-16 xl:px-24 pt-24 pb-16 scroll-mt-28 relative z-10"
+        aria-label="Home section"
       >
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* left */}
@@ -162,7 +125,7 @@ export default function PortfolioPage() {
             <div className="flex flex-wrap gap-4 pt-4 justify-center">
               <Button
                 size="lg"
-                className="rounded-xl px-7 py-6 text-lg font-medium bg-gradient-to-r from-emerald-300 to-sky-400 text-black shadow-lg shadow-emerald-500/10 hover:opacity-90 hover:scale-[1.02] transition-all"
+                className="rounded-full px-8 py-6 text-lg font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-sky-500 text-white shadow-lg shadow-emerald-500/20 hover:opacity-90 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -173,7 +136,7 @@ export default function PortfolioPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-xl px-7 py-6 text-lg font-medium border-white/20 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/30 hover:scale-[1.02] transition-all"
+                className="rounded-full px-8 py-6 text-lg font-bold tracking-tight border-white/10 bg-gray-800/60 text-white hover:bg-gray-700/60 hover:border-white/20 hover:scale-[1.02] transition-all"
                 asChild
               >
                 <Link href="#contact">Contact me</Link>
@@ -205,85 +168,60 @@ export default function PortfolioPage() {
           <div className="relative flex justify-center lg:justify-end">
             <div className="animate-float w-full max-w-xs lg:max-w-sm xl:max-w-md">
               <Image
-                src="/photo.png"
-                alt="Mihini Niweka"
+                src="/photo.PNG"
+                alt="Mihini Niweka - Full-Stack Developer"
                 width={500}
                 height={500}
                 className="w-full h-auto object-contain"
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- bottom dock (same, looks more native) --- */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
-        <div className="max-w-md mx-auto px-6 pb-6">
-          <div className="relative rounded-full p-2 border border-white/10 bg-[#0b0b0b]/70 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
-            {/* top highlight line */}
-            <div className="pointer-events-none absolute inset-x-4 top-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <div className="flex items-center justify-around">
-              {[
-                { icon: Home, id: "home", label: "Home" },
-                { icon: User, id: "about", label: "Profile" },
-                { icon: BarChart3, id: "skills", label: "Stats" },
-                { icon: Briefcase, id: "projects", label: "Portfolio" },
-                { icon: MessageCircle, id: "contact", label: "Chat" },
-              ].map(({ icon: Icon, id, label }) => {
-                const isActive = activeNav === id
-                return (
-                  <button
-                    key={id}
-                    onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                    aria-label={label}
-                    aria-current={isActive ? "page" : undefined}
-                    className={[
-                      "h-12 w-12 rounded-full grid place-items-center transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/35",
-                      isActive
-                        ? "bg-gradient-to-r from-sky-400 to-emerald-300 text-black shadow-lg shadow-emerald-500/20 scale-[1.08]"
-                        : "text-white/50 hover:text-white/85 hover:bg-white/[0.05] hover:scale-[1.04]",
-                    ].join(" ")}
-                  >
-                    <Icon size={19} />
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* About Section */}
       <section
         id="about"
-        className="py-24 md:py-32 px-6 md:px-12 lg:px-16 xl:px-24 relative min-h-screen flex items-center scroll-mt-28"
+        className="py-16 md:py-20 px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 relative scroll-mt-28"
+        aria-label="About section"
       >
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-3 mb-8">
-              <Code2 className="text-emerald-300" size={32} />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">About</h2>
-            </div>
-            <div className="space-y-5 text-lg text-white/80 leading-relaxed">
-              <div className="p-8 rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/10 hover:border-emerald-300/30 transition-all">
-                <p>
-                Final-year Software Engineering student at La Trobe University with hands-on experience building
-                full-stack applications, cloud deployments, and AI-driven features.
+        <div className="w-full max-w-[100rem] mx-auto relative z-10">
+          <div className="grid lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 xl:gap-32 items-start">
+            {/* Left Section - Content */}
+            <div className="space-y-5">
+              <h2 className="text-xl md:text-2xl lg:text-3xl uppercase tracking-[0.2em] text-sky-400 mb-6 font-bold">ABOUT ME.</h2>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white uppercase mb-6 leading-[1.1]">
+                I'm just a dude passionate about Technology and Design
+              </h3>
+              <p className="text-base md:text-lg text-white/90 leading-relaxed max-w-4xl">
+                With 4+ years of working experience, 50+ projects completed including projects completed at software companies, freelance and in my own time. My Tech skills include:
               </p>
+            </div>
+
+            {/* Right Section - Experience Highlight */}
+            <div className="flex flex-col items-end justify-start pt-2 lg:pr-8 xl:pr-16">
+              <div className="mb-3 leading-none">
+                <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-sky-400">4</span>
+                <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-emerald-400">+</span>
               </div>
-              <div className="p-8 rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/10 hover:border-emerald-300/30 transition-all">
-                <p>I enjoy turning complex problems into clean, production-ready systems.</p>
+              <div className="text-white text-right">
+                <div className="text-base md:text-lg font-medium">Years of Experience</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Bottom navigation - page-specific for single-page portfolio */}
+      <BottomNav />
+
       {/* Skills Bento Grid */}
       <section
         id="skills"
         className="py-32 px-6 md:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto scroll-mt-20 relative z-10"
+        aria-label="Skills section"
       >
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <div>
@@ -352,6 +290,7 @@ export default function PortfolioPage() {
       <section
         id="projects"
         className="py-24 md:py-32 px-6 md:px-12 lg:px-16 xl:px-24 relative min-h-screen flex items-center scroll-mt-28"
+        aria-label="Projects section"
       >
         <div className="max-w-7xl mx-auto w-full">
           <div className="mb-12 md:mb-16">
@@ -448,10 +387,11 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Contact section (kept simple — you can paste your existing contact section here) */}
+      {/* Contact section */}
       <section
         id="contact"
         className="py-24 md:py-32 px-6 md:px-12 lg:px-16 xl:px-24 relative min-h-screen flex items-center scroll-mt-28"
+        aria-label="Contact section"
       >
         <div className="max-w-7xl mx-auto w-full">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
@@ -469,7 +409,7 @@ export default function PortfolioPage() {
               <Link href="mailto:mihininiweka@gmail.com">Email Me</Link>
             </Button>
             <Button variant="outline" className="bg-white/[0.04] border-white/15 rounded-xl px-6 text-white" asChild>
-              <Link href="https://www.linkedin.com/in/mihini-ranasinghe-213355219" target="_blank">
+              <Link href="https://www.linkedin.com/in/mihini-ranasinghe-213355219" target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </Link>
             </Button>

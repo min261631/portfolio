@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Rajdhani } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { Header } from "@/components/header"
 import "./globals.css"
 
 const rajdhani = Rajdhani({ 
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
     "Software Engineering major at La Trobe University. Full-stack developer specializing in AWS, AI/ML, and scalable web applications. Vice President of GDG La Trobe & CTO of Enactus La Trobe.",
   keywords: ["Full-Stack Developer", "Software Engineer", "AWS", "React", "Next.js", "AI/ML", "Melbourne Developer"],
   authors: [{ name: "Mihini Niweka" }],
-  generator: "v0.app",
+  generator: "Next.js",
+  ...(process.env.NEXT_PUBLIC_SITE_URL && {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL),
+  }),
   icons: {
     icon: [
       {
@@ -40,6 +44,23 @@ export const metadata: Metadata = {
     description:
       "Full-stack developer crafting scalable, impact-driven applications with AWS, AI/ML, and modern web technologies.",
     type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
   },
 }
 
@@ -49,8 +70,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${rajdhani.variable} font-sans antialiased`}>
+        <a
+          href="#home"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-500 focus:text-black focus:rounded-lg focus:font-bold"
+        >
+          Skip to main content
+        </a>
+        <Header />
         {children}
         <Analytics />
       </body>
