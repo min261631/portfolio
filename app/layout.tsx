@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Rajdhani } from "next/font/google"
+import { Rajdhani, Orbitron } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Header } from "@/components/header"
 import "./globals.css"
@@ -9,6 +9,13 @@ const rajdhani = Rajdhani({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-rajdhani",
+  display: "swap",
+})
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-orbitron",
   display: "swap",
 })
 
@@ -71,7 +78,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${rajdhani.variable} font-sans antialiased`}>
+      <body className={`${rajdhani.variable} ${orbitron.variable} font-sans antialiased`}>
         <a
           href="#home"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-500 focus:text-black focus:rounded-lg focus:font-bold"

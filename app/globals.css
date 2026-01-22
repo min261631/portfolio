@@ -13,17 +13,23 @@
 @theme inline {
   --font-sans: var(--font-rajdhani), "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-secondary: var(--font-rajdhani), "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-orbitron: var(--font-orbitron), "Orbitron", sans-serif;
+  --font-primary: var(--font-orbitron), "Orbitron", sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --color-accent-glow: rgba(110, 231, 183, 0.15);
+  --color-accent: #3bace2;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
 
 @layer base {
   body {
-    @apply text-white antialiased selection:bg-emerald-500/30;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    font-family: Rajdhani, sans-serif;
     font-size: 1.125rem;
     line-height: 2rem;
+    margin: 0;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -37,26 +43,103 @@
   }
 }
 
+/* Typography Classes */
+.h2 {
+  font-family: Orbitron, sans-serif;
+  font-size: 32px;
+  letter-spacing: 10%;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.h3 {
+  font-size: 26px;
+  line-height: 46px;
+  font-family: Orbitron, sans-serif;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.h4 {
+  font-size: 22px;
+  line-height: 36px;
+  font-family: Orbitron, sans-serif;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.text-gradient {
+  --tw-gradient-from: #42a6e3 var(--tw-gradient-from-position);
+  --tw-gradient-to: #42a6e300 var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #1db954 var(--tw-gradient-to-position);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  color: #0000;
+  font-family: Orbitron, sans-serif;
+  font-weight: 700;
+}
+
+.text-gradient:hover {
+  --tw-gradient-from: #1db954 var(--tw-gradient-from-position);
+  --tw-gradient-to: #1db95400 var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #42a6e3 var(--tw-gradient-to-position);
+}
+
+.font-primary {
+  font-family: Orbitron, sans-serif;
+}
+
+.font-secondary {
+  font-family: Rajdhani, sans-serif;
+}
+
+.font-tertiary {
+  font-family: Aldrich, sans-serif;
+}
+
 .bg-site {
   background-image: url(/site-bg.a78bcff79b6c2e1d5edd.jpg);
   background-position: center;
-  background-size: 110%;
+  background-size: cover;
+  background-attachment: fixed;
   animation: backgroundMove 30s ease-in-out infinite;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .bg-site {
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: center center;
+  }
 }
 
 @keyframes backgroundMove {
   0%, 100% {
     background-position: 50% 50%;
-    background-size: 110%;
   }
   33% {
     background-position: 48% 52%;
-    background-size: 115%;
   }
   66% {
     background-position: 52% 48%;
-    background-size: 115%;
+  }
+}
+
+@media (max-width: 768px) {
+  @keyframes backgroundMove {
+    0%, 100% {
+      background-position: center center;
+    }
+    33% {
+      background-position: center center;
+    }
+    66% {
+      background-position: center center;
+    }
   }
 }
 
@@ -104,6 +187,36 @@
     radial-gradient(circle 190px at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.16) 42%, transparent 72%);
   animation: tornado3 22s linear infinite;
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .cloud-light-1,
+  .cloud-light-2,
+  .cloud-light-3 {
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+
+  .cloud-light-1 {
+    width: 250px;
+    height: 250px;
+    top: 10%;
+    left: 10%;
+  }
+
+  .cloud-light-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 10%;
+  }
+
+  .cloud-light-3 {
+    width: 220px;
+    height: 220px;
+    bottom: 20%;
+    left: 5%;
+  }
 }
 
 @keyframes tornado1 {
@@ -257,8 +370,6 @@ html {
 }
 
 .hero-icon {
-  width: 42px;
-  height: 42px;
   display: grid;
   place-items: center;
   border-radius: 999px;
@@ -451,4 +562,104 @@ html {
 
 .ref-portrait:hover .ref-portrait-img{
   transform: scale(1.06);
+}
+
+/* Button styling with Orbitron font */
+.btn {
+  --tw-text-opacity: 1;
+  border-radius: 9999px;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  font-family: Orbitron, sans-serif;
+  font-weight: 500;
+  background: linear-gradient(92.23deg, #02c074 21.43%, #01b69b 50.63%, #3bace2 100%, #406aff 117.04%);
+  box-shadow: 0 4.42184px 107.23px #01fef682;
+}
+
+.btn:hover {
+  animation: pulse 1s infinite;
+}
+
+.btn_secondary {
+  background: linear-gradient(92.23deg, #323232 21.43%, #353737 50.63%, #545454 100%, #767676 117.04%);
+  box-shadow: 0 4.42184px 107.23px #136f6c82;
+}
+
+.btn-sm {
+  font-size: 0.875rem;
+  height: 48px;
+  line-height: 1.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.btn-lg {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  height: 56px;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .lg\:btn-lg {
+    font-size: 1rem;
+    height: 56px;
+    line-height: 1.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.active,
+.btn:hover,
+.gradient {
+  background: linear-gradient(92.23deg, #406aff 21.43%, #3bace2 50.63%, #1ab639 100%, #0fb834 117.04%);
+}
+
+.active {
+  border-radius: 100%;
+  color: #fff;
+  padding: 1rem;
+}
+
+.hover\:bg-accent:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 172 226 / var(--tw-bg-opacity));
+}
+
+.hover\:text-accent:hover {
+  --tw-text-opacity: 1;
+  color: rgb(59 172 226 / var(--tw-text-opacity));
+}
+
+.text-accent {
+  --tw-text-opacity: 1;
+  color: rgb(59 172 226 / var(--tw-text-opacity));
+}
+
+/* Section Styles */
+.section {
+  align-items: center;
+  display: flex;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+
+@media (min-width: 960px) {
+  .section {
+    height: 100vh;
+    padding-bottom: 6rem;
+    padding-top: 6rem;
+  }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.hover\:animate-pulse:hover {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
