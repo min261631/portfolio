@@ -1,75 +1,111 @@
-import { Badge } from "@/components/ui/badge"
-import { Cpu, Layers, Globe, Cloud } from "lucide-react"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
+interface TechItem {
+  name: string
+  imageUrl: string
+}
+
+const techStack: Record<string, TechItem[]> = {
+  Languages: [
+    { name: "JavaScript", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+    { name: "TypeScript", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+    { name: "C++", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+    { name: "C#", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" },
+    { name: "HTML", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+    { name: "CSS3", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  ],
+  Frontend: [
+    { name: "React Js", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+    { name: "Vue Js", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
+    { name: "Laravel PHP", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg" },
+    { name: "Framer", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framer/framer-original.svg" },
+    { name: "Bootstrap", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
+    { name: "Tailwind CSS", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  ],
+  "Backend and API": [
+    { name: "Node JS", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+    { name: "Express JS", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+    { name: "Django", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+    { name: "Rest API", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
+    { name: "Supabase", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+    { name: "Postman", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
+  ],
+  Database: [
+    { name: "MySQL", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+    { name: "PostgreSQL", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+    { name: "SQLite", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" },
+    { name: "Firebase", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+    { name: "Redis", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
+    { name: "Supabase", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+  ],
+  "Cloud & DevOps": [
+    { name: "AWS", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+    { name: "Azure", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
+    { name: "Docker", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+    { name: "Git", imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  ],
+}
 
 export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto scroll-mt-20 relative z-10"
+      className="pt-4 sm:pt-6 md:pt-8 pb-24 sm:pb-32 md:pb-40 lg:pb-48 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 relative scroll-mt-20"
       aria-label="Skills section"
     >
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-14 md:mb-16 gap-4">
-        <div>
-          <h2 className="text-xs sm:text-sm uppercase tracking-[0.3em] text-emerald-400 mb-3 sm:mb-4 font-bold">Expertise</h2>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic uppercase">Technical Stack</h3>
-        </div>
-        <p className="text-white/40 max-w-xs text-left sm:text-right text-sm sm:text-base hidden md:block">
-          Specializing in full-stack engineering, cloud architecture, and AI-driven solutions.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4">
-        {/* Main Skill Card */}
-        <div className="glass-card md:col-span-2 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2.5rem] relative overflow-hidden group">
-          <Globe className="absolute -right-8 -bottom-8 text-emerald-500/5 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 group-hover:rotate-12 transition-transform" />
-          <h4 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 md:mb-8 flex items-center gap-2 sm:gap-3">
-            <Layers className="text-emerald-400 w-5 h-5 sm:w-6 sm:h-6" /> <span>Frontend Architecture</span>
-          </h4>
-          <div className="flex flex-wrap gap-2 sm:gap-3">
-            {["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"].map((s) => (
-              <Badge
-                key={s}
-                className="bg-white/5 hover:bg-emerald-500 hover:text-black transition-colors py-1.5 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl border-white/10 text-xs sm:text-sm"
-              >
-                {s}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        {/* Backend Card */}
-        <div className="glass-card p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2.5rem]">
-          <h4 className="text-base sm:text-lg md:text-xl font-bold mb-4 sm:mb-5 md:mb-6 flex items-center gap-2 sm:gap-3">
-            <Cpu className="text-sky-400 w-5 h-5 sm:w-6 sm:h-6" /> <span>Backend</span>
-          </h4>
-          <ul className="space-y-3 sm:space-y-4 text-white/50">
-            <li className="flex items-center gap-2 font-mono text-xs sm:text-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" /> Node.js / Bun
-            </li>
-            <li className="flex items-center gap-2 font-mono text-xs sm:text-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" /> Python Flask
-            </li>
-            <li className="flex items-center gap-2 font-mono text-xs sm:text-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" /> PostgreSQL
-            </li>
-          </ul>
+      <div className="w-full max-w-6xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 items-stretch">
+          {Object.entries(techStack).map(([category, items]) => (
+            <div key={category} className="flex flex-col h-full">
+              <h6 className="mb-6 font-bold text-center text-green-400 flex-shrink-0">
+                {category}
+              </h6>
+              <div className="grid grid-cols-2 gap-6 border border-green-400 rounded-lg p-4 hover:bg-green-800 transition-all duration-300 hover:scale-[102%] flex-1 min-h-0">
+                {items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="flex flex-col items-center justify-between text-center h-[80px]"
+                  >
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      width={50}
+                      height={50}
+                      className="h-[50px] object-contain"
+                      unoptimized
+                    />
+                    <span className="leading-tight text-sm text-white">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Cloud Card */}
-        <div className="glass-card p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2.5rem]">
-          <h4 className="text-base sm:text-lg md:text-xl font-bold mb-4 sm:mb-5 md:mb-6 flex items-center gap-2 sm:gap-3">
-            <Cloud className="text-purple-400 w-5 h-5 sm:w-6 sm:h-6" /> <span>Cloud</span>
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {["AWS (S3, Lambda)", "Docker", "Firebase", "CI/CD"].map((t) => (
-              <Badge key={t} variant="secondary" className="bg-white/5 text-white/60 border-none text-xs sm:text-sm py-1.5 px-3">
-                {t}
-              </Badge>
-            ))}
-          </div>
+        {/* Buttons - Same as hero section */}
+        <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 w-full justify-end mt-6 sm:mt-8 md:mt-10">
+          <Button
+            size="sm"
+            className="btn px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base shadow-lg shadow-emerald-500/20 hover:opacity-90 hover:scale-[1.02] transition-all bg-gradient-to-r from-emerald-400 to-sky-500 whitespace-nowrap h-[40px] sm:h-[44px] md:h-[48px]"
+            asChild
+          >
+            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              My Resume
+            </Link>
+          </Button>
+
+          <Link
+            href="tel:+61492917957"
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn_secondary border-2 border-none bg-none text-white hover:bg-accent hover:text-white transition-all flex items-center justify-center hover:animate-pulse whitespace-nowrap ease-in-out duration-700 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base h-[40px] sm:h-[44px] md:h-[48px]"
+          >
+            Contact me
+          </Link>
         </div>
       </div>
     </section>
   )
 }
-

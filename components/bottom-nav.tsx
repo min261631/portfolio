@@ -25,39 +25,41 @@ export function BottomNav() {
   }, [sections])
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
-      <div className="max-w-md mx-auto px-4 sm:px-6 pb-4 sm:pb-5 md:pb-6">
-        <div className="relative rounded-full p-1.5 sm:p-2 border border-white/10 bg-[#0b0b0b]/70 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
-          {/* top highlight line */}
-          <div className="pointer-events-none absolute inset-x-3 sm:inset-x-4 top-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="flex items-center justify-around">
-            {[
-              { icon: Home, id: "home", label: "Home" },
-              { icon: User, id: "about", label: "Profile" },
-              { icon: BarChart3, id: "skills", label: "Stats" },
-              { icon: Briefcase, id: "projects", label: "Portfolio" },
-              { icon: MessageCircle, id: "contact", label: "Chat" },
-            ].map(({ icon: Icon, id, label }) => {
-              const isActive = activeNav === id
-              return (
-                <button
-                  key={id}
-                  onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  aria-label={label}
-                  aria-current={isActive ? "page" : undefined}
-                  className={[
-                    "h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-full grid place-items-center transition-all focus:outline-none focus:ring-2 focus:ring-emerald-300/35",
-                    isActive
-                      ? "bg-gradient-to-r from-sky-400 to-emerald-300 text-black shadow-lg shadow-emerald-500/20 scale-[1.08]"
-                      : "text-white/50 hover:text-white/85 hover:bg-white/[0.05] hover:scale-[1.04]",
-                  ].join(" ")}
-                >
-                  <Icon size={18} className="sm:w-5 sm:h-5 md:w-[19px] md:h-[19px]" />
-                </button>
-              )
-            })}
-          </div>
-        </div>
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-transparent pb-4 sm:pb-5 md:pb-6">
+      <div className="w-full bg-black/20 h-[96px] backdrop-blur-2xl rounded-full max-w-[460px] mx-auto px-5 flex justify-between items-center text-2xl text-white/50">
+        {[
+          { icon: Home, id: "home", label: "Home" },
+          { icon: User, id: "about", label: "Profile" },
+          { icon: BarChart3, id: "skills", label: "Stats" },
+          { icon: Briefcase, id: "projects", label: "Portfolio" },
+          { icon: MessageCircle, id: "contact", label: "Chat" },
+        ].map(({ icon: Icon, id, label }) => {
+          const isActive = activeNav === id
+          return (
+            <button
+              key={id}
+              onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              aria-label={label}
+              aria-current={isActive ? "page" : undefined}
+              className={[
+                "cursor-pointer w-[60px] h-[60px] flex items-center justify-center transition-all",
+                isActive
+                  ? "active rounded-full text-white p-4"
+                  : "text-white/50 hover:text-white",
+              ].join(" ")}
+              style={
+                isActive
+                  ? {
+                      background:
+                        "linear-gradient(92.23deg, #406aff 21.43%, #3bace2 50.63%, #1ab639 100%, #0fb834 117.04%)",
+                    }
+                  : undefined
+              }
+            >
+              <Icon size={24} />
+            </button>
+          )
+        })}
       </div>
     </nav>
   )

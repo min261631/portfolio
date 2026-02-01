@@ -162,7 +162,7 @@
   width: 400px;
   height: 400px;
   background: 
-    radial-gradient(circle 200px at 50% 50%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.2) 40%, transparent 70%);
+    radial-gradient(circle 200px at 50% 50%, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 40%, transparent 70%);
   animation: tornado1 20s linear infinite;
   border-radius: 50%;
 }
@@ -173,7 +173,7 @@
   width: 350px;
   height: 350px;
   background: 
-    radial-gradient(circle 180px at 50% 50%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.18) 38%, transparent 68%);
+    radial-gradient(circle 180px at 50% 50%, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0.08) 38%, transparent 68%);
   animation: tornado2 25s linear infinite;
   border-radius: 50%;
 }
@@ -184,7 +184,7 @@
   width: 380px;
   height: 380px;
   background: 
-    radial-gradient(circle 190px at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.16) 42%, transparent 72%);
+    radial-gradient(circle 190px at 50% 50%, rgba(110, 231, 183, 0.12) 0%, rgba(110, 231, 183, 0.06) 42%, transparent 72%);
   animation: tornado3 22s linear infinite;
   border-radius: 50%;
 }
@@ -346,6 +346,15 @@ html {
   border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb:hover { background: #6ee7b7; }
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
 /* Existing hero utilities */
 .hero-grid {
@@ -662,4 +671,10 @@ html {
 
 .hover\:animate-pulse:hover {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Logo styling */
+.logo {
+  width: auto;
+  object-fit: contain;
 }
