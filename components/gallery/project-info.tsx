@@ -8,7 +8,7 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
   return (
     <div className="flex flex-col justify-center space-y-8">
       <div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white font-secondary">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white font-secondary">
           {project.title}
         </h1>
         <p className="text-lg sm:text-xl text-emerald-400 mb-8 font-secondary">
@@ -16,19 +16,9 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
         </p>
       </div>
 
-      <div className="text-white/90 text-base sm:text-lg leading-relaxed font-secondary mb-8">
-        <ul className="list-disc list-inside space-y-2">
-          {project.description
-            .split(/[.!?]+/)
-            .filter(sentence => sentence.trim().length > 0)
-            .map((sentence, index) => (
-              <li key={index} className="pl-2">
-                {sentence.trim()}
-                {index < project.description.split(/[.!?]+/).filter(s => s.trim().length > 0).length - 1 ? '.' : ''}
-              </li>
-            ))}
-        </ul>
-      </div>
+      <p className="text-white/90 text-base sm:text-lg leading-relaxed font-secondary mb-8">
+        {project.description}
+      </p>
 
       {project.techStack && project.techStack.length > 0 && (
         <div className="mb-8">

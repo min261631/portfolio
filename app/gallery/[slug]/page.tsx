@@ -70,7 +70,7 @@ export default function GalleryPage() {
       {/* Main Content */}
       <div className="pt-24 sm:pt-28 md:pt-32 pb-12 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
         <div className="max-w-[1600px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12 xl:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-12 xl:gap-16">
             {/* Left Column - Project Info */}
             <ProjectInfo project={project} />
 

@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useState, useEffect } from "react"
+import { ImageCounter } from "./image-counter"
 
 interface ImageGalleryProps {
   images: string[]
@@ -21,54 +21,22 @@ export function ImageGallery({
   onSelect,
   title,
 }: ImageGalleryProps) {
-  const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null)
-
-  useEffect(() => {
-    // Reset aspect ratio when image changes
-    setImageAspectRatio(null)
-    
-    // Preload image to get dimensions
-    const img = new window.Image()
-    img.onload = () => {
-      const aspectRatio = img.naturalWidth / img.naturalHeight
-      setImageAspectRatio(aspectRatio)
-    }
-    img.onerror = () => {
-      // Fallback to default aspect ratio if image fails to load
-      setImageAspectRatio(4/3)
-    }
-    img.src = images[currentIndex]
-  }, [currentIndex, images])
-
-  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const img = e.currentTarget
-    const aspectRatio = img.naturalWidth / img.naturalHeight
-    setImageAspectRatio(aspectRatio)
-  }
-
-  // Fallback aspect ratio if image hasn't loaded yet
-  const aspectRatioStyle = imageAspectRatio 
-    ? { aspectRatio: imageAspectRatio.toString() }
-    : { aspectRatio: '4/3' } // Default fallback
+  const currentImage = images[currentIndex]
 
   return (
-    <div className="relative w-full">
-      {/* Main Image - Dynamically sized based on image dimensions */}
-      <div 
-        className="relative w-full bg-black/20 rounded-xl overflow-hidden border-2 border-emerald-400/30 shadow-lg shadow-emerald-500/10 max-w-full transition-all duration-300"
-        style={aspectRatioStyle}
-      >
+    <div className="flex flex-col space-y-6">
+      {/* Main Image Display */}
+      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-white/20 bg-black/20">
         <Image
-          src={images[currentIndex]}
+          src={currentImage}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
           className="object-contain"
-          priority={currentIndex === 0}
+          priority
           unoptimized
-          onLoad={handleImageLoad}
           onError={(e) => {
             const target = e.target as HTMLImageElement
-            target.src = `https://via.placeholder.com/1200x900/1e293b/64748b?text=${encodeURIComponent(title)}`
+            target.src = `https://via.placeholder.com/800x600/1e293b/64748b?text=${encodeURIComponent(title)}`
           }}
         />
 
@@ -77,43 +45,57 @@ export function ImageGallery({
           <>
             <button
               onClick={onPrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/90 hover:scale-110 transition-all z-10 shadow-lg"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-7 h-7" />
+              <ChevronLeft className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={onNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/90 hover:scale-110 transition-all z-10 shadow-lg"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
               aria-label="Next image"
             >
-              <ChevronRight className="w-7 h-7" />
+              <ChevronRight className="w-6 h-6 text-white" />
             </button>
           </>
         )}
+
+        {/* Image Counter */}
+        {images.length > 1 && (
+          <div className="absolute top-4 right-4 z-10">
+            <ImageCounter current={currentIndex + 1} total={images.length} />
+          </div>
+        )}
       </div>
 
-      {/* Thumbnail Navigation - Made smaller */}
+      {/* Thumbnail Strip */}
       {images.length > 1 && (
-        <div className="mt-8 flex gap-3 overflow-x-auto pb-2 scrollbar-hide justify-center lg:justify-start">
+        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-emerald-400/30 scrollbar-track-transparent">
           {images.map((image, index) => (
             <button
               key={index}
               onClick={() => onSelect(index)}
-              className={`relative flex-shrink-0 w-14 h-14 lg:w-16 lg:h-16 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`relative flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                 index === currentIndex
-                  ? "border-emerald-400 scale-110 shadow-lg shadow-emerald-500/30"
-                  : "border-white/20 hover:border-white/40 hover:scale-105"
+                  ? "border-emerald-400 scale-105"
+                  : "border-white/20 hover:border-white/40"
               }`}
-              aria-label={`Go to image ${index + 1}`}
+              aria-label={`View image ${index + 1}`}
             >
               <Image
                 src={image}
-                alt={`Thumbnail ${index + 1}`}
+                alt={`${title} thumbnail ${index + 1}`}
                 fill
                 className="object-cover"
                 unoptimized
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = `https://via.placeholder.com/96/1e293b/64748b?text=${index + 1}`
+                }}
               />
+              {index === currentIndex && (
+                <div className="absolute inset-0 bg-emerald-400/20" />
+              )}
             </button>
           ))}
         </div>
