@@ -6,58 +6,46 @@ interface ProjectInfoProps {
 
 export function ProjectInfo({ project }: ProjectInfoProps) {
   return (
-    <div className="flex flex-col justify-center space-y-8">
+    <div className="flex flex-col space-y-10 lg:sticky lg:top-32">
+      {/* Title */}
       <div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white font-secondary">
-          {project.title}
+        <h1 className="h2 leading-tight text-accent mb-0">
+          {project.title}.
         </h1>
-        <p className="text-lg sm:text-xl text-emerald-400 mb-8 font-secondary">
-          {project.role}
-        </p>
       </div>
 
-      <p className="text-white/90 text-base sm:text-lg leading-relaxed font-secondary mb-8">
-        {project.description}
-      </p>
+      {/* Description */}
+      <div className="space-y-4">
+        {project.description
+          .split(/\.\s+/)
+          .filter((sentence) => sentence.trim().length > 0)
+          .map((sentence, index, array) => (
+            <p
+              key={index}
+              className="text-white/80 text-base sm:text-lg leading-relaxed font-secondary"
+            >
+              {sentence.trim()}
+              {index < array.length - 1 && "."}
+            </p>
+          ))}
+      </div>
 
+      {/* Tech Stack */}
       {project.techStack && project.techStack.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-white font-semibold mb-4">Tech Stack:</h3>
-          <div className="flex flex-wrap gap-2">
+        <div className="pt-6 border-t border-white/10">
+          <h3 className="text-white/60 font-semibold text-sm uppercase tracking-wider mb-5 font-secondary">
+            Tech Stack
+          </h3>
+          <div className="flex flex-wrap gap-2.5">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm border border-emerald-500/30"
+                className="px-4 py-2 bg-white/5 text-sky-400 rounded-md text-sm border border-white/10 hover:border-sky-500/50 hover:bg-white/10 transition-all font-secondary"
               >
                 {tech}
               </span>
             ))}
           </div>
-        </div>
-      )}
-
-      {(project.website || project.appSumo) && (
-        <div className="flex flex-col sm:flex-row gap-4">
-          {project.website && (
-            <a
-              href={project.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-gradient-to-r from-emerald-400 to-sky-500 text-black font-semibold rounded-full hover:opacity-90 transition-opacity text-center"
-            >
-              Visit Website
-            </a>
-          )}
-          {project.appSumo && (
-            <a
-              href={project.appSumo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 border-2 border-white/50 text-white rounded-full hover:bg-white/10 transition-colors text-center"
-            >
-              View on AppSumo
-            </a>
-          )}
         </div>
       )}
     </div>

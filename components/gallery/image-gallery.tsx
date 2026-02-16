@@ -28,9 +28,9 @@ export function ImageGallery({
   const shouldLinkToWebsite = website && imageLinksToWebsite
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="flex flex-col">
       {/* Main Image Display */}
-      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-black/20">
+      <div className="relative w-full aspect-[3/2] lg:aspect-[4/3] rounded-2xl overflow-hidden bg-black/30 border border-white/5 shadow-2xl">
         {shouldLinkToWebsite ? (
           <a
             href={website}
@@ -54,9 +54,23 @@ export function ImageGallery({
                 target.src = `https://via.placeholder.com/800x600/1e293b/64748b?text=${encodeURIComponent(title)}`
               }}
             />
-            <div className="absolute inset-0 bg-black/0 group-hover/image-link:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-              <div className="opacity-0 group-hover/image-link:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-emerald-400/50">
-                <span className="text-emerald-400 text-sm font-semibold">Visit Website →</span>
+            {/* Visit Website Button */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
+              <div className="bg-gradient-to-r from-emerald-400 to-sky-500 text-black font-semibold px-8 py-3.5 rounded-full shadow-2xl hover:shadow-[0_0_30px_rgba(59,172,226,0.5)] hover:scale-105 transition-all duration-300 flex items-center gap-2.5 backdrop-blur-sm">
+                <span className="text-sm tracking-wide">Visit Website</span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
               </div>
             </div>
           </a>
@@ -83,20 +97,20 @@ export function ImageGallery({
                 e.stopPropagation()
                 onPrev()
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-10 p-3.5 rounded-full bg-black/70 hover:bg-black/90 border border-white/10 hover:border-sky-400/60 transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-6 h-6 text-white" />
+              <ChevronLeft className="w-5 h-5 text-white" />
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 onNext()
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 p-3.5 rounded-full bg-black/70 hover:bg-black/90 border border-white/10 hover:border-sky-400/60 transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110"
               aria-label="Next image"
             >
-              <ChevronRight className="w-6 h-6 text-white" />
+              <ChevronRight className="w-5 h-5 text-white" />
             </button>
           </>
         )}

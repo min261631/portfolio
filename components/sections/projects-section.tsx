@@ -25,8 +25,24 @@ export function ProjectsSection() {
               <p className="max-w-sm mb-6 text-white font-secondary">
                 Screenshots of some of my latest projects from previous jobs, university projects showcasing what I've been up to in the world of web development as a frontend developer.
               </p>
-              <Link href="/projects" className="h3 text-accent mb-14 hover:text-emerald-300 transition-colors cursor-pointer">
-                Click to see more
+              <Link 
+                href="/projects" 
+                className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-400 to-sky-500 text-black font-semibold px-6 py-3 rounded-full hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl w-fit"
+              >
+                <span>Click to see more</span>
+                <svg
+                  className="w-4 h-4 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </Link>
             </div>
             {projects.left.map((project) => (

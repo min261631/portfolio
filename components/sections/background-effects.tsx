@@ -1,6 +1,18 @@
 export function BackgroundEffects() {
   return (
     <>
+      {/* Background Image */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/background.jpg)',
+        }}
+        aria-hidden
+      />
+      
+      {/* Overlay to darken background image slightly */}
+      <div className="fixed inset-0 pointer-events-none z-0 bg-[#0a0a0a]/60" aria-hidden />
+      
       {/* Animated cloud-like light patches with green/blue gradients */}
       <div className="fixed inset-0 pointer-events-none z-0" aria-hidden>
         <div className="cloud-light-1" />

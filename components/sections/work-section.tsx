@@ -80,7 +80,7 @@ export function WorkSection() {
       {/* Desktop Timeline */}
       <section
         id="work"
-        className="xl:h-[860px] py-12 xl:py-24 mb-20 hidden lg:block"
+        className="xl:h-[860px] pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-12 xl:pb-24 mb-20 hidden lg:block relative z-10"
         aria-label="Work Experience section"
       >
         <div className="container mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
@@ -226,7 +226,7 @@ export function WorkSection() {
       {/* Mobile Timeline */}
       <section
         id="work"
-        className="py-12 mb-20 lg:hidden"
+        className="pt-24 sm:pt-32 md:pt-40 pb-12 mb-20 lg:hidden relative z-10"
         aria-label="Work Experience section"
       >
         <div className="container mx-auto w-full max-w-6xl px-4 sm:px-6">

@@ -17,3 +17,4 @@ export function ImageCounter({ current, total }: ImageCounterProps) {
 
 
 
+

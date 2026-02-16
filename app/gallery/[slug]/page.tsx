@@ -43,7 +43,7 @@ export default function GalleryPage() {
       <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-          <Link href="/#projects" className="text-emerald-400 hover:text-emerald-300">
+          <Link href="/#projects" className="bg-gradient-to-r from-emerald-400 to-sky-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
             Return to Projects
           </Link>
         </div>
@@ -68,9 +68,31 @@ export default function GalleryPage() {
       <BackgroundEffects />
 
       {/* Main Content */}
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-12 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-12 xl:gap-16">
+      <div className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
+        <div className="max-w-[1800px] mx-auto">
+          {/* Back Button */}
+          <div className="mb-12">
+            <Link
+              href="/projects"
+              className="inline-flex items-center text-white/60 hover:text-white transition-colors text-sm font-secondary tracking-wide"
+            >
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back to Projects
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-12 lg:gap-16 xl:gap-20 items-start">
             {/* Left Column - Project Info */}
             <ProjectInfo project={project} />
 
