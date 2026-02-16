@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { ImageCounter } from "./image-counter"
 
 interface ImageGalleryProps {
   images: string[]
@@ -11,6 +10,8 @@ interface ImageGalleryProps {
   onPrev: () => void
   onSelect: (index: number) => void
   title: string
+  website?: string
+  imageLinksToWebsite?: boolean
 }
 
 export function ImageGallery({
@@ -20,38 +21,78 @@ export function ImageGallery({
   onPrev,
   onSelect,
   title,
+  website,
+  imageLinksToWebsite,
 }: ImageGalleryProps) {
   const currentImage = images[currentIndex]
+  const shouldLinkToWebsite = website && imageLinksToWebsite
 
   return (
     <div className="flex flex-col space-y-6">
       {/* Main Image Display */}
-      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-white/20 bg-black/20">
-        <Image
-          src={currentImage}
-          alt={`${title} - Image ${currentIndex + 1}`}
-          fill
-          className="object-contain"
-          priority
-          unoptimized
-          onError={(e) => {
-            const target = e.target as HTMLImageElement
-            target.src = `https://via.placeholder.com/800x600/1e293b/64748b?text=${encodeURIComponent(title)}`
-          }}
-        />
+      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-black/20">
+        {shouldLinkToWebsite ? (
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative w-full h-full block cursor-pointer group/image-link"
+            onClick={(e) => {
+              // Allow navigation arrows to work by stopping propagation if clicking on them
+              // But allow the image itself to link to website
+            }}
+          >
+            <Image
+              src={currentImage}
+              alt={`${title} - Click to visit website`}
+              fill
+              className="object-contain group-hover/image-link:scale-105 transition-transform duration-300"
+              priority
+              unoptimized
+              onError={(e) => {
+                const target = e.target as HTMLImageElement
+                target.src = `https://via.placeholder.com/800x600/1e293b/64748b?text=${encodeURIComponent(title)}`
+              }}
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover/image-link:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+              <div className="opacity-0 group-hover/image-link:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-emerald-400/50">
+                <span className="text-emerald-400 text-sm font-semibold">Visit Website →</span>
+              </div>
+            </div>
+          </a>
+        ) : (
+          <Image
+            src={currentImage}
+            alt={`${title} - Image ${currentIndex + 1}`}
+            fill
+            className="object-contain"
+            priority
+            unoptimized
+            onError={(e) => {
+              const target = e.target as HTMLImageElement
+              target.src = `https://via.placeholder.com/800x600/1e293b/64748b?text=${encodeURIComponent(title)}`
+            }}
+          />
+        )}
 
         {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
             <button
-              onClick={onPrev}
+              onClick={(e) => {
+                e.stopPropagation()
+                onPrev()
+              }}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6 text-white" />
             </button>
             <button
-              onClick={onNext}
+              onClick={(e) => {
+                e.stopPropagation()
+                onNext()
+              }}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
               aria-label="Next image"
             >
@@ -59,47 +100,7 @@ export function ImageGallery({
             </button>
           </>
         )}
-
-        {/* Image Counter */}
-        {images.length > 1 && (
-          <div className="absolute top-4 right-4 z-10">
-            <ImageCounter current={currentIndex + 1} total={images.length} />
-          </div>
-        )}
       </div>
-
-      {/* Thumbnail Strip */}
-      {images.length > 1 && (
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-emerald-400/30 scrollbar-track-transparent">
-          {images.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => onSelect(index)}
-              className={`relative flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                index === currentIndex
-                  ? "border-emerald-400 scale-105"
-                  : "border-white/20 hover:border-white/40"
-              }`}
-              aria-label={`View image ${index + 1}`}
-            >
-              <Image
-                src={image}
-                alt={`${title} thumbnail ${index + 1}`}
-                fill
-                className="object-cover"
-                unoptimized
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.src = `https://via.placeholder.com/96/1e293b/64748b?text=${index + 1}`
-                }}
-              />
-              {index === currentIndex && (
-                <div className="absolute inset-0 bg-emerald-400/20" />
-              )}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

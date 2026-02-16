@@ -82,6 +82,8 @@ export default function GalleryPage() {
               onPrev={prevImage}
               onSelect={goToImage}
               title={project.title}
+              website={project.website}
+              imageLinksToWebsite={project.imageLinksToWebsite}
             />
           </div>
         </div>

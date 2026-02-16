@@ -8,6 +8,7 @@ export interface Project {
   techStack?: string[]
   website?: string
   appSumo?: string
+  imageLinksToWebsite?: boolean // If true, clicking the image in gallery will go to the website
 }
 
 export const projectsData: Project[] = [
@@ -41,19 +42,37 @@ export const projectsData: Project[] = [
     techStack: ["React", "TypeScript"],
   },
   {
-    slug: "gallery-techtrove",
-    title: "Map My Coles",
+    slug: "gallery-enactus",
+    title: "Enactus La Trobe",
     role: "QUT Assignment - Python Flask Application",
-    description: "Built an AR-powered indoor navigation system using React, TypeScript, Three.js and @react-three/fiber, enabling real-time guidance with camera overlays, 3D aisle paths, device-orientation tracking, and precise product detection on shelves. Designed an AI-driven routing engine that personalises the shopper’s path by analysing shopping lists, user behaviour, promotions, and historical purchase patterns—optimising routes beyond just the shortest distance for higher engagement. Implemented a scalable backend workflow using AWS Lambda and serverless functions to process store blueprint data, generate aisle coordinates, and feed intelligent AR/AI recommendations into a dynamic 2D/3D map rendered on the client.",
-    imageUrl: "/projects/coles.png",
+    description: "Built an AR-powered indoor navigation system using React, TypeScript, Three.js and @react-three/fiber, enabling real-time guidance with camera overlays, 3D aisle paths, device-orientation tracking, and precise product detection on shelves. Designed an AI-driven routing engine that personalises the shopper's path by analysing shopping lists, user behaviour, promotions, and historical purchase patterns—optimising routes beyond just the shortest distance for higher engagement. Implemented a scalable backend workflow using AWS Lambda and serverless functions to process store blueprint data, generate aisle coordinates, and feed intelligent AR/AI recommendations into a dynamic 2D/3D map rendered on the client.",
+    imageUrl: "/projects/enactus.png",
     images: [
-      "/projects/techtrove.png",
-      "/projects/techtrove-1.png",
-      "/projects/techtrove-2.png",
+      "/projects/enactus.png",
     ],
     techStack: ["Python", "Flask", "SQLite"],
+    website: "https://enactuslatrobe.org/",
+    imageLinksToWebsite: true,
+  },
+  {
+    slug: "gallery-ybit",
+    title: "YBit",
+    role: "QUT Assignment - Python Flask Application",
+    description: "Built an AR-powered indoor navigation system using React, TypeScript, Three.js and @react-three/fiber, enabling real-time guidance with camera overlays, 3D aisle paths, device-orientation tracking, and precise product detection on shelves. Designed an AI-driven routing engine that personalises the shopper's path by analysing shopping lists, user behaviour, promotions, and historical purchase patterns—optimising routes beyond just the shortest distance for higher engagement. Implemented a scalable backend workflow using AWS Lambda and serverless functions to process store blueprint data, generate aisle coordinates, and feed intelligent AR/AI recommendations into a dynamic 2D/3D map rendered on the client.",
+    imageUrl: "/projects/ybit1.png",
+    images: [
+      "/projects/ybit1.png",
+      "/projects/ybit2.png",
+      "/projects/ybit3.png",
+    ],
+    techStack: ["Python", "Flask", "SQLite"],
+    imageLinksToWebsite: true,
+    website: "https://teachme-landing.vercel.app/pages/landing_page.html?fbclid=PAZXh0bgNhZW0CMTEAAafA5kgiQ0W4W_JopoDOcMzlAv4JLpUVvERD2SbDO7dsrLiixijMmNR5QBn3ZQ_aem_dwkPz1C-b9V7n3IAoNwysQ",
   },
 ]
+
+// Featured projects for homepage (first 3 projects)
+export const featuredProjects = projectsData.slice(0, 3)
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projectsData.find((project) => project.slug === slug)

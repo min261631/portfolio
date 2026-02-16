@@ -1,11 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import { projectsData } from "@/data/projects"
+import { featuredProjects } from "@/data/projects"
 
-// Split projects into left and right columns
+// Split featured projects into left and right columns
+// Left column: first project, Right column: next 2 projects
 const projects = {
-  left: projectsData.filter((_, index) => index % 3 === 0),
-  right: projectsData.filter((_, index) => index % 3 !== 0),
+  left: featuredProjects.slice(0, 1),
+  right: featuredProjects.slice(1, 3),
 }
 
 export function ProjectsSection() {
@@ -24,7 +25,9 @@ export function ProjectsSection() {
               <p className="max-w-sm mb-6 text-white font-secondary">
                 Screenshots of some of my latest projects from previous jobs, university projects showcasing what I've been up to in the world of web development as a frontend developer.
               </p>
-              <h3 className="h3 text-accent mb-14">Click to see more</h3>
+              <Link href="/projects" className="h3 text-accent mb-14 hover:text-emerald-300 transition-colors cursor-pointer">
+                Click to see more
+              </Link>
             </div>
             {projects.left.map((project) => (
               <ProjectCard key={project.slug} project={project} />
