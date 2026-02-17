@@ -25,7 +25,7 @@ export function Header() {
         <div className="flex items-center gap-4">
           <a
             className="btn btn-sm flex justify-center items-center text-xs sm:text-sm px-3 sm:px-4 md:px-6"
-            href="mailto:jasdevbedi.aus@gmail.com"
+            href="mailto:mihininiweka@gmail.com"
           >
             Work With Me
           </a>

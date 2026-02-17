@@ -54,13 +54,6 @@ const timelineItems: TimelineItem[] = [
   },
 ]
 
-function splitDescription(desc: string) {
-  return desc
-    .split("<br>")
-    .map((s) => s.trim())
-    .filter(Boolean)
-}
-
 function NodeIcon({ type }: { type: "academic" | "work" }) {
   return type === "academic" ? (
     <svg viewBox="0 0 640 512" className="h-4 w-4 fill-white">
@@ -76,72 +69,82 @@ function NodeIcon({ type }: { type: "academic" | "work" }) {
 function TimelineDot({ type }: { type: "academic" | "work" }) {
   const dotClass =
     type === "academic"
-      ? "bg-sky-500 text-white"
-      : "bg-emerald-500 text-white"
+      ? "bg-sky-500/90 shadow-[0_0_0_10px_rgba(56,189,248,0.14)]"
+      : "bg-purple-500/90 shadow-[0_0_0_10px_rgba(168,85,247,0.14)]"
 
   return (
-    <div className={`h-10 w-10 rounded-full flex items-center justify-center shadow-lg ${dotClass}`}>
+    <div className={`h-10 w-10 rounded-full grid place-items-center ${dotClass}`}>
       <NodeIcon type={type} />
     </div>
   )
 }
 
-function DateText({ date, align }: { date: string; align: "left" | "right" }) {
+function ExperienceCard({
+  item,
+  logoSide,
+}: {
+  item: TimelineItem
+  logoSide: "left" | "right"
+}) {
+  const isLogoLeft = logoSide === "left"
+
   return (
     <div
-      className={[
-        "text-white/80 text-sm whitespace-nowrap leading-none",
-        align === "right" ? "text-right" : "text-left",
-      ].join(" ")}
+      className="
+        bg-black/55 backdrop-blur-2xl border border-white/10
+        shadow-[0_18px_80px_rgba(0,0,0,0.65)]
+        rounded-[44px]
+        px-7 py-4
+        w-full
+      "
     >
-      {date}
+      <div className={`flex items-center gap-5 ${isLogoLeft ? "flex-row" : "flex-row-reverse"}`}>
+        <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+          <Image
+            src={item.logoUrl}
+            alt={item.logoAlt}
+            width={item.logoWidth || 70}
+            height={item.logoWidth || 70}
+            className="object-contain"
+            unoptimized
+            onError={(e) => {
+              const target = e.target as HTMLImageElement
+              target.style.display = "none"
+            }}
+          />
+        </div>
+
+        <div className={isLogoLeft ? "text-left" : "text-right"}>
+          <span className="text-white text-xl font-semibold font-secondary block leading-tight mb-1">
+            {item.title}
+          </span>
+
+          <p
+            className="text-white text-base font-secondary leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: item.description.replace(/<br\s*\/?>\s*-\s*/gi, ' - ') }}
+          />
+        </div>
+      </div>
     </div>
   )
 }
 
-function ExperienceCard({ item, isRightSide }: { item: TimelineItem; isRightSide?: boolean }) {
-  const logoElement = (
-    <div className="flex-shrink-0">
-      <Image
-        src={item.logoUrl}
-        alt={item.logoAlt}
-        width={item.logoWidth || 80}
-        height={item.logoWidth || 80}
-        className="object-contain"
-        unoptimized
-        onError={(e) => {
-          const target = e.target as HTMLImageElement
-          target.style.display = "none"
-        }}
-      />
-    </div>
-  )
-
-  const textElement = (
-    <div className="text-left flex-1 flex-col">
-      <span className="text-xl font-semibold text-white font-secondary block mb-1.5">
-        {item.title}
-      </span>
-      <p
-        className="text-white text-base font-secondary leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: item.description }}
-      />
-    </div>
-  )
-
+function Spine({
+  type,
+  isFirst,
+  isLast,
+}: {
+  type: "academic" | "work"
+  isFirst: boolean
+  isLast: boolean
+}) {
   return (
-    <div className="bg-black/50 backdrop-blur-2xl p-3 rounded-2xl flex flex-row items-start gap-4 max-w-[600px] w-full">
-      {isRightSide ? (
-        <>
-          {logoElement}
-          {textElement}
-        </>
-      ) : (
-        <>
-          {textElement}
-          {logoElement}
-        </>
-      )}
+    <div className="relative z-10 flex flex-col items-center w-[64px] h-full">
+      {/* connector above */}
+      <div className={`w-[2px] flex-1 bg-white/25 ${isFirst ? "opacity-0" : "opacity-100"}`} />
+      <TimelineDot type={type} />
+      {/* connector below */}
+      <div className={`w-[2px] flex-1 bg-white/25 ${isLast ? "opacity-0" : "opacity-100"}`} />
     </div>
   )
 }
@@ -149,10 +152,10 @@ function ExperienceCard({ item, isRightSide }: { item: TimelineItem; isRightSide
 export function WorkSection() {
   return (
     <>
-      {/* Desktop Timeline */}
+      {/* Desktop */}
       <section
         id="work"
-        className="pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-20 xl:pb-32 mb-20 hidden lg:block relative z-10"
+        className="pt-24 sm:pt-32 md:pt-40 lg:pt-48 pb-8 xl:pb-12 hidden lg:block relative z-10"
         aria-label="Work Experience section"
       >
         <div className="container mx-auto w-full max-w-[1600px] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
@@ -160,44 +163,54 @@ export function WorkSection() {
             Academic and Work Experience.
           </h2>
 
-          <div className="experience flex">
-            <ul className="relative w-full flex flex-col py-1.5 px-4 flex-grow list-none m-0 p-0">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/20 transform -translate-x-1/2"></div>
+          <div className="relative">
+            {/* dead-center spine line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/25 -translate-x-1/2" />
 
+            <ul className="relative w-full list-none m-0 p-0">
               {timelineItems.map((item, index) => {
-                const isLeftCard = item.position === "left"
+                const isLeft = item.position === "left"
+                const isFirst = index === 0
+                const isLast = index === timelineItems.length - 1
 
                 return (
-                  <li key={index} className="relative mb-5 list-none flex min-h-[60px] w-full">
-                    <div className="flex items-center w-full">
-                      {/* Left Content - Date or Card */}
-                      <div className={`flex-1 pr-12 flex items-center ${isLeftCard ? "justify-end" : "justify-start"}`}>
-                        {isLeftCard ? (
-                          <ExperienceCard item={item} isRightSide={false} />
-                        ) : (
-                          <div className="text-white text-base font-secondary text-right">
-                            {item.date}
-                          </div>
-                        )}
-                      </div>
+                  <li key={index} className="relative">
+                    <div className="py-6">
+                      <div
+                        className="
+                          grid items-center
+                          [grid-template-columns:1fr_64px_1fr]
+                          gap-x-3
+                        "
+                      >
+                        {/* LEFT SIDE */}
+                        <div className="flex items-center justify-end pr-12">
+                          {isLeft ? (
+                            <div className="max-w-[760px] w-full">
+                              <ExperienceCard item={item} logoSide="right" />
+                            </div>
+                          ) : (
+                            <div className="text-white text-base font-secondary text-right whitespace-nowrap">
+                              {item.date}
+                            </div>
+                          )}
+                        </div>
 
-                      {/* Timeline Separator - Fixed width to ensure centering */}
-                      <div className="relative z-10 flex flex-col items-center flex-shrink-0 w-14">
-                        <div className="w-0.5 h-4 bg-white/20"></div>
-                        <TimelineDot type={item.type} />
-                        <div className="w-0.5 h-4 bg-white/20"></div>
-                      </div>
+                        {/* SPINE */}
+                        <Spine type={item.type} isFirst={isFirst} isLast={isLast} />
 
-                      {/* Right Content - Date or Card */}
-                      <div className={`flex-1 pl-12 flex items-center ${isLeftCard ? "justify-start" : "justify-end"}`}>
-                        {isLeftCard ? (
-                          <div className="text-white text-base font-secondary text-left">
-                            {item.date}
-                          </div>
-                        ) : (
-                          <ExperienceCard item={item} isRightSide={true} />
-                        )}
+                        {/* RIGHT SIDE */}
+                        <div className="flex items-center justify-start pl-12">
+                          {!isLeft ? (
+                            <div className="max-w-[760px] w-full">
+                              <ExperienceCard item={item} logoSide="left" />
+                            </div>
+                          ) : (
+                            <div className="text-white text-base font-secondary text-left whitespace-nowrap">
+                              {item.date}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -208,35 +221,43 @@ export function WorkSection() {
         </div>
       </section>
 
-      {/* Mobile Timeline */}
+      {/* Mobile */}
       <section
-        id="work"
-        className="pt-24 sm:pt-32 md:pt-40 pb-12 mb-20 lg:hidden relative z-10"
-        aria-label="Work Experience section"
+        id="work-mobile"
+        className="pt-24 sm:pt-32 pb-8 lg:hidden relative z-10"
+        aria-label="Work Experience section mobile"
       >
         <div className="container mx-auto w-full max-w-6xl px-4 sm:px-6">
-          <h2 className="h2 text-accent text-center mx-auto mb-12">Academic and Work Experience.</h2>
-          <div className="experience flex">
-            <ul className="relative w-full">
-              {/* Timeline Line */}
-              <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-white/20"></div>
+          <h2 className="h2 text-accent text-center mx-auto mb-12">
+            Academic and Work Experience.
+          </h2>
 
-              {timelineItems.map((item, index) => (
-                <li key={index} className="relative mb-5 pl-16">
-                  {/* Timeline Separator */}
-                  <div className="absolute left-0 top-0 flex flex-col items-center">
-                    <div className="w-0.5 h-4 bg-white/20"></div>
-                    <TimelineDot type={item.type} />
-                    <div className="w-0.5 h-4 bg-white/20"></div>
-                  </div>
+          <div className="relative">
+            <div className="absolute left-6 top-0 bottom-0 w-[2px] bg-white/25" />
 
-                  {/* Content Card */}
-                  <div>
-                    <p className="text-white text-base font-secondary mb-2">{item.date}</p>
-                    <ExperienceCard item={item} />
-                  </div>
-                </li>
-              ))}
+            <ul className="list-none m-0 p-0">
+              {timelineItems.map((item, index) => {
+                const isFirst = index === 0
+                const isLast = index === timelineItems.length - 1
+
+                return (
+                  <li key={index} className="relative pl-16">
+                    <div className="py-6">
+                      <div className="absolute left-0 top-0 h-full flex flex-col items-center w-12">
+                        <div className={`w-[2px] flex-1 bg-white/25 ${isFirst ? "opacity-0" : "opacity-100"}`} />
+                        <TimelineDot type={item.type} />
+                        <div className={`w-[2px] flex-1 bg-white/25 ${isLast ? "opacity-0" : "opacity-100"}`} />
+                      </div>
+
+                      <p className="text-white text-base font-secondary mb-2 whitespace-nowrap">
+                        {item.date}
+                      </p>
+
+                      <ExperienceCard item={item} logoSide="left" />
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
