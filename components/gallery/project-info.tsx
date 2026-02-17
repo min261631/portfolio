@@ -26,7 +26,7 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
             >
               {sentence.trim()}
               {index < array.length - 1 && "."}
-            </p>
+      </p>
           ))}
       </div>
 
