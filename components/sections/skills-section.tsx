@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { ScrollAnimation } from "@/components/animations/scroll-animation"
 
 interface TechItem {
   name: string
@@ -52,10 +53,11 @@ export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="pt-4 sm:pt-6 md:pt-8 pb-24 sm:pb-32 md:pb-40 lg:pb-48 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 relative scroll-mt-20"
+      className="pt-4 sm:pt-6 md:pt-8 pb-24 sm:pb-32 md:pb-40 lg:pb-48 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 relative scroll-mt-20"
       aria-label="Skills section"
     >
-      <div className="w-full max-w-6xl mx-auto relative z-10">
+      <ScrollAnimation>
+        <div className="w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[90%] xl:max-w-6xl mx-auto relative z-10 overflow-x-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 items-stretch">
           {Object.entries(techStack).map(([category, items]) => (
             <div key={category} className="flex flex-col h-full">
@@ -106,6 +108,7 @@ export function SkillsSection() {
           </Link>
         </div>
       </div>
+      </ScrollAnimation>
     </section>
   )
 }

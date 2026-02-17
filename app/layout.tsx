@@ -78,8 +78,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${rajdhani.variable} ${orbitron.variable} font-sans antialiased`}>
+    <html lang="en" className="dark overflow-x-hidden" suppressHydrationWarning>
+      <body className={`${rajdhani.variable} ${orbitron.variable} font-sans antialiased overflow-x-hidden`}>
         <GalleryProvider>
           <a
             href="#home"

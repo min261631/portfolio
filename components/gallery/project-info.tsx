@@ -6,10 +6,10 @@ interface ProjectInfoProps {
 
 export function ProjectInfo({ project }: ProjectInfoProps) {
   return (
-    <div className="flex flex-col space-y-10 lg:sticky lg:top-32">
+    <div className="flex flex-col space-y-6 sm:space-y-8 lg:space-y-10 lg:sticky lg:top-32">
       {/* Title */}
       <div>
-        <h1 className="h2 leading-tight text-accent mb-0">
+        <h1 className="h2 leading-tight text-accent mb-0 text-white">
           {project.title}.
         </h1>
       </div>
@@ -22,18 +22,18 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
           .map((sentence, index, array) => (
             <p
               key={index}
-              className="text-white/80 text-base sm:text-lg leading-relaxed font-secondary"
+              className="text-white text-base sm:text-lg leading-relaxed font-secondary"
             >
               {sentence.trim()}
               {index < array.length - 1 && "."}
-      </p>
+            </p>
           ))}
       </div>
 
       {/* Tech Stack */}
       {project.techStack && project.techStack.length > 0 && (
         <div className="pt-6 border-t border-white/10">
-          <h3 className="text-white/60 font-semibold text-sm uppercase tracking-wider mb-5 font-secondary">
+          <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 font-secondary">
             Tech Stack
           </h3>
           <div className="flex flex-wrap gap-2.5">

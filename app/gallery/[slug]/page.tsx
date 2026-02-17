@@ -68,13 +68,13 @@ export default function GalleryPage() {
       <BackgroundEffects />
 
       {/* Main Content */}
-      <div className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
+      <div className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative z-10">
         <div className="max-w-[1800px] mx-auto">
           {/* Back Button */}
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12 relative z-10">
             <Link
               href="/projects"
-              className="inline-flex items-center text-white/60 hover:text-white transition-colors text-sm font-secondary tracking-wide"
+              className="inline-flex items-center text-white hover:text-white transition-colors text-sm font-secondary tracking-wide"
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -92,21 +92,25 @@ export default function GalleryPage() {
               Back to Projects
             </Link>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-12 lg:gap-16 xl:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-8 sm:gap-10 lg:gap-16 xl:gap-20 items-start">
             {/* Left Column - Project Info */}
-            <ProjectInfo project={project} />
+            <div className="relative z-10">
+              <ProjectInfo project={project} />
+            </div>
 
             {/* Right Column - Image Gallery */}
-            <ImageGallery
-              images={project.images}
-              currentIndex={currentImageIndex}
-              onNext={nextImage}
-              onPrev={prevImage}
-              onSelect={goToImage}
-              title={project.title}
-              website={project.website}
-              imageLinksToWebsite={project.imageLinksToWebsite}
-            />
+            <div className="relative z-10">
+              <ImageGallery
+                images={project.images}
+                currentIndex={currentImageIndex}
+                onNext={nextImage}
+                onPrev={prevImage}
+                onSelect={goToImage}
+                title={project.title}
+                website={project.website}
+                imageLinksToWebsite={project.imageLinksToWebsite}
+              />
+            </div>
           </div>
         </div>
       </div>

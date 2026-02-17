@@ -11,13 +11,13 @@ export default function AllProjectsPage() {
       <BackgroundEffects />
 
       {/* Main Content */}
-      <div className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
+      <div className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-16 md:mb-20">
             <Link
               href="/#projects"
-              className="inline-flex items-center text-white/60 hover:text-white transition-colors text-sm font-secondary tracking-wide mb-8"
+              className="inline-flex items-center text-white hover:text-white transition-colors text-sm font-secondary tracking-wide mb-8 relative z-10"
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -34,10 +34,10 @@ export default function AllProjectsPage() {
               </svg>
               Back to Home
             </Link>
-            <h1 className="h2 leading-tight text-accent mb-6">
+            <h1 className="h2 leading-tight text-accent mb-6 relative z-10">
               All Projects.
             </h1>
-            <p className="text-base sm:text-lg text-white/60 font-secondary max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg text-white font-secondary max-w-2xl leading-relaxed relative z-10">
               A comprehensive showcase of my work, including professional projects and academic assignments.
             </p>
           </div>

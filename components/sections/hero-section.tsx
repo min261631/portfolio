@@ -56,21 +56,21 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-20 sm:pb-24 md:pb-16 scroll-mt-20 sm:scroll-mt-28 relative z-10"
+      className="min-h-[85vh] flex items-center justify-center px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-20 sm:pb-24 md:pb-16 scroll-mt-20 sm:scroll-mt-28 relative z-10"
       aria-label="Home section"
     >
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[90%] xl:max-w-7xl mx-auto w-full overflow-x-hidden">
         {/* Mobile: Centered layout with image first */}
         <div className="flex flex-col-reverse xl:flex-row gap-y-8 xl:items-center xl:gap-x-12">
           {/* Content - Centered on mobile, left-aligned on desktop */}
           <div className="flex-1 flex flex-col items-center xl:items-start text-center xl:text-left xl:pl-12 2xl:pl-16 space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-6 xl:space-y-8">
             {/* Name */}
-            <h1 className="text-[40px] sm:text-[50px] md:text-[60px] lg:text-[110px] font-bold leading-[0.9] text-center lg:text-left whitespace-nowrap w-full font-secondary text-white lg:mb-0">
+            <h1 className="text-[40px] sm:text-[50px] md:text-[60px] lg:text-[110px] font-bold leading-[0.9] text-center lg:text-left break-words w-full font-secondary text-white lg:mb-0">
               MIHINI <span>NIWEKA</span>
             </h1>
 
             {/* Profession with typing effect */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-[50px] font-secondary font-semibold leading-[1.2] text-center lg:text-left w-full whitespace-nowrap lg:-mt-2 xl:-mt-3">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-[50px] font-secondary font-semibold leading-[1.2] text-center lg:text-left w-full break-words lg:-mt-2 xl:-mt-3">
               <span className="text-white font-secondary">I am a </span>
               <span className="text-sky-300 inline-block text-left font-secondary whitespace-nowrap">
                 {text}
@@ -81,8 +81,8 @@ export function HeroSection() {
             </div>
 
             {/* Contact info - Stacked on mobile, horizontal on desktop */}
-            <div className="flex flex-col xl:flex-row gap-x-6 xl:gap-y-4 mb-5 text-white text-lg items-center whitespace-nowrap w-full justify-center xl:justify-start">
-              <span className="flex items-center gap-2.5 whitespace-nowrap">
+            <div className="flex flex-col xl:flex-row gap-x-6 xl:gap-y-4 mb-5 text-white text-lg items-center w-full justify-center xl:justify-start flex-wrap">
+              <span className="flex items-center gap-2.5">
                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" style={{ display: 'block', verticalAlign: 'middle' }}>
                   <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
                 </svg>
@@ -161,7 +161,7 @@ export function HeroSection() {
           </div>
 
           {/* Profile Image - Mobile first, then right on desktop */}
-          <div className="xl:flex flex-1 max-w-[220px] xl:max-w-[450px] mx-auto mt-[-80px] xl:mt-0 xl:ml-[-60px] 2xl:ml-[-60px]">
+          <div className="xl:flex flex-1 max-w-[80%] sm:max-w-[60%] md:max-w-[50%] xl:max-w-[40%] 2xl:max-w-[450px] mx-auto -mt-16 sm:-mt-20 md:-mt-24 xl:mt-0 xl:-ml-8 2xl:-ml-12">
             <div className="animate-float w-full overflow-hidden rounded-full xl:rounded-none">
               <Image
                 src="/photo.PNG"
@@ -170,7 +170,7 @@ export function HeroSection() {
                 height={500}
                 className="w-full h-auto object-cover brightness-[90%]"
                 priority
-                sizes="(max-width: 1280px) 220px, 450px"
+                sizes="(max-width: 640px) 80vw, (max-width: 1280px) 50vw, 450px"
               />
             </div>
           </div>
