@@ -1,6 +1,6 @@
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY || "")
 
 export async function POST(req: Request) {
   try {
@@ -9,6 +9,13 @@ export async function POST(req: Request) {
     if (!name || !email || !message) {
       return new Response(JSON.stringify({ error: "Missing fields" }), { 
         status: 400,
+        headers: { "Content-Type": "application/json" }
+      })
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: "Email service not configured" }), { 
+        status: 500,
         headers: { "Content-Type": "application/json" }
       })
     }
